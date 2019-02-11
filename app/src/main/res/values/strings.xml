@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">VatCreatorKotlin</string>
+    <string name="czy_jeste_p_atnikiem_vat">Czy jesteś płatnikiem VAT</string>
+</resources>
