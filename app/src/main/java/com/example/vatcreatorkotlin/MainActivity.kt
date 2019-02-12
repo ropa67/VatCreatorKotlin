@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
                 Intent(this, Main2Activity::class.java).apply {
                 putExtras(
                     Bundle().apply {
-                        putString("price_key", editText.text.toString())
-                        putInt("vat",vatValues[stawkaVatSpinner.selectedItemPosition])
+                        putString("price_key", price_et.text.toString())
+                        putInt("vat",vatValues[vat_spinner.selectedItemPosition])
                         putInt("doch", dochValues[dochodowySpinner.selectedItemPosition])
                     }
                 )
@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
         val tak_nieVatSam = arrayOf("-Wybierz-", "Tak", "Nie")
 
 
-        stawkaVatSpinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, vatValues.map {"$it%"})
+        vat_spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, vatValues.map {"$it%"})
         dochodowySpinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dochValues.map { "$it%" })
         tak_nieVat.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tak_nieVatSpinner)
         SamochódTak_Nie.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tak_nieVatSam)
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-        stawkaVatSpinner.onItemSelectedListener =
+        vat_spinner.onItemSelectedListener =
                 object : AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
                     override fun onNothingSelected(parent: AdapterView<*>?) {
                     }

@@ -15,9 +15,9 @@ import kotlinx.android.synthetic.main.activity_main2.*
 class Main2Activity : AppCompatActivity() {
 
     lateinit var podanaCena: TextView
-    lateinit var doObliczenia: String
+    lateinit var doObliczeniaDochodo: String
     var podanacena3: Double = 0.0
-    lateinit var zaoszczedzonyVAT: TextView
+
 
 
     @SuppressLint("RestrictedApi")
@@ -41,12 +41,14 @@ class Main2Activity : AppCompatActivity() {
             0 -> (price.toDouble()*0).toString()
             else -> "Error"
         }
-       doObliczeniaDochodo.text = (price.toDouble() - zaoszczedzonaNaVAT.toString().toDouble()).toString()
+
+
+       doObliczeniaDochodo = (price.toDouble() - zaoszczedzonaNaVAT.text.toString().toDouble()).toString()
 
         zaoszczędzonaNaDochodo.text = when(intent.extras?.getInt("doch")){
-            18 -> (doObliczeniaDochodo.toString().toDouble()*0.18).toString()
-            19 -> (doObliczeniaDochodo.toString().toDouble()*0.19).toString()
-            32 -> (doObliczeniaDochodo.toString().toDouble()*0.32).toString()
+            18 -> (price.toDouble() - (doObliczeniaDochodo.toString().toDouble()*0.18)).toString()
+            19 -> (doObliczeniaDochodo.toDouble()*0.19).toString()
+            32 -> (doObliczeniaDochodo.toDouble()*0.32).toString()
             else -> "Error"
 
         }
