@@ -55,7 +55,8 @@
             android:gravity="right" android:layout_marginTop="48dp"
             app:layout_constraintTop_toBottomOf="@+id/price_et"
             app:layout_constraintBottom_toBottomOf="@+id/textView2" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintVertical_bias="1.0"/>
+            app:layout_constraintVertical_bias="1.0" android:spinnerMode="dropdown"
+    />
 
     <TextView
             android:id="@+id/textView3"
@@ -69,7 +70,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView2" android:textSize="25sp"/>
 
     <Spinner
-            android:id="@+id/dochodowySpinner"
+            android:id="@+id/incomeSpinner"
             android:layout_width="174dp"
             android:layout_height="40dp"
             android:layout_marginTop="80dp"
@@ -88,16 +89,8 @@
             android:text="@string/czy_jeste_p_atnikiem_vat"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView3" android:textSize="25sp"
-            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/tak_nieVat"
+            android:layout_marginEnd="8dp" app:layout_constraintEnd_toStartOf="@+id/switchVat"
             android:layout_marginRight="8dp" app:layout_constraintHorizontal_bias="0.0"/>
-
-    <Spinner
-            android:id="@+id/tak_nieVat"
-            android:layout_width="174dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="80dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dochodowySpinner"/>
 
     <TextView
             android:id="@+id/textView5"
@@ -107,7 +100,9 @@
             android:text="Czy jest to wydatek 'samochodowy'?"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView4" android:textSize="25sp" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginStart="8dp" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/switchCar" android:layout_marginRight="8dp"
+            app:layout_constraintHorizontal_bias="0.0"/>
 
     <Button
             android:id="@+id/nextActivity"
@@ -122,15 +117,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent" android:onClick="nextActivity"/>
-    <Spinner
-            android:layout_width="174dp"
-            android:layout_height="40dp"
-            android:id="@+id/SamochódTak_Nie"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textView5" android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintTop_toTopOf="@+id/textView5"/>
+            app:layout_constraintStart_toStartOf="parent" android:onClick="nextActivity" tools:ignore="OnClick"/>
     <TextView
             android:text="zł"
             android:layout_width="22dp"
@@ -138,6 +125,30 @@
             android:id="@+id/textView" android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:textSize="20sp" tools:text="zł" android:layout_marginEnd="8dp" android:layout_marginRight="8dp"/>
+    <Switch
+            android:text=" "
+            android:layout_width="68dp"
+            android:layout_height="30dp"
+            android:id="@+id/switchVat" android:layout_marginTop="92dp"
+            app:layout_constraintTop_toBottomOf="@+id/incomeSpinner"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:textOn="on"
+            android:textOff="off"
+            android:showText="true"
+    />
+    <Switch
+            android:text=" "
+            android:layout_width="68dp"
+            android:layout_height="30dp"
+            android:id="@+id/switchCar" android:layout_marginTop="128dp"
+            app:layout_constraintTop_toBottomOf="@+id/switchVat"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="28dp"
+            android:layout_marginRight="28dp"
+            android:textOn="on"
+            android:textOff="off"
+            android:showText="true"
+    />
 
 
 </android.support.constraint.ConstraintLayout>

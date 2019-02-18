@@ -1,80 +1,68 @@
 package com.example.vatcreatorkotlin
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
-    private val vatValues = arrayOf(23, 8, 0)
-    private val dochValues = arrayOf(18, 19, 32)
+    companion object {
+        const val CALC_RESULT = 1234
+    }
+    private val vatValues = arrayOf(23, 8, 0) ////23 , 8 , 0 - > 0 , 1, 2
+    private val incomeValues = arrayOf(18, 19, 32)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        vat_spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, vatValues.map { "$it%" })
+        incomeSpinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, incomeValues.map { "$it%" })
 
-
-        nextActivity.setOnClickListener {
-            startActivity(
-                Intent(this, Main2Activity::class.java).apply {
-                putExtras(
-                    Bundle().apply {
-                        putString("price_key", price_et.text.toString())
-                        putInt("vat",vatValues[vat_spinner.selectedItemPosition])
-                        putInt("doch", dochValues[dochodowySpinner.selectedItemPosition])
-                    }
-                )
-            }
-            )
+        switchVat.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) vat_spinner.setSelection(2)
+            else vat_spinner.setSelection(0)
         }
+        nextActivity.setOnClickListener {
+            if (price_et.text.isEmpty()) {
+                price_et.error = getString(R.string.price_error_text)
+            } else
+                startActivityForResult(
+                    Intent(this, Main2Activity::class.java).apply {
+                        putExtras(
+                            Bundle().apply {
+                                putDouble("price_key", price_et.text.toString().toDouble())
+                                putInt("vat",  vatValues[vat_spinner.selectedItemPosition])
+                                putBoolean("tax",switchVat.isChecked)
+                                putInt("doch", incomeValues[incomeSpinner.selectedItemPosition])
+                            }
+                        )
 
-
-//        val spinerVAT = arrayOf("-Wybierz-", "23%", "8%", "0% - Rachunek bez VAT")
-//        val spinerDoch = arrayOf("-Wybierz-", "18% - zasady ogólne", "19% - liniowy", "32% - drugi próg")
-//        val tak_nieVatSpinner = arrayOf("-Wybierz-", "Tak", "Nie")
-//        val tak_nieVatSam = arrayOf("-Wybierz-", "Tak", "Nie")
-//
-
-        val tak_nieVatSpinner = arrayOf("-Wybierz-", "Tak", "Nie")
-        val tak_nieVatSam = arrayOf("-Wybierz-", "Tak", "Nie")
-
-
-        vat_spinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, vatValues.map {"$it%"})
-        dochodowySpinner.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, dochValues.map { "$it%" })
-        tak_nieVat.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tak_nieVatSpinner)
-        SamochódTak_Nie.adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, tak_nieVatSam)
-
-
-
-
-        dochodowySpinner.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                    }
-
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    }
-
-                    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    }
-                }
-
-        vat_spinner.onItemSelectedListener =
-                object : AdapterView.OnItemSelectedListener, AdapterView.OnItemClickListener {
-                    override fun onNothingSelected(parent: AdapterView<*>?) {
-                    }
-
-                    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-
-                    }
-
-                    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-                    }
-                }
+                    }, CALC_RESULT
+                )
+        }
     }
 
 
+    public override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == CALC_RESULT){
+            if(resultCode == Activity.RESULT_OK){
+                clearAllData()
+            }
+        }
+    }
+
+    private fun clearAllData() {
+        price_et.setText("")
+        vat_spinner.selectedItemPosition
+        incomeSpinner.selectedItemId
+    }
 }
+
+
+
+

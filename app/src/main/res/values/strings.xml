@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">VatCreatorKotlin</string>
     <string name="czy_jeste_p_atnikiem_vat">Czy jesteś płatnikiem VAT</string>
+    <string name="price_error_text">To pole nie może być puste</string>
+    <string name="price_added_text">%1$.2f zł</string>
+    <string name="saved_on_vat">%1$.2f zł</string>
+    <string name="to_calcume_income">%1$.2f zł</string>
+    <string name="saved_on_income">%1$.2f zł</string>
+    <string name="real_price">%1$.2f zł</string>
+    <string name="saved_money">%1$.2f zł</string>
 </resources>
